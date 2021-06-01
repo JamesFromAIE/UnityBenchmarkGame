@@ -7,20 +7,26 @@ public class EXIT : MonoBehaviour
 
     // CLOSE GAME WHEN PLAYER CLICKS OBJECT
 
+    private float rayLength = 2f;
+
     // Update is called once per frame
     void Update()
     {
-        // Establishes a Raycast from the camera
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        // Something happens when hit
         RaycastHit hit;
-        //print("hello 1");
-        if (Physics.Raycast(ray, out hit) && Input.GetMouseButtonDown(0))
+        
+
+        if (Physics.Raycast(ray, out hit, rayLength))
         {
-            if (hit.transform.position == transform.position)
+            if (hit.transform.tag == "AdminButton" && Input.GetKey(KeyCode.Mouse0))
             {
+                Debug.Log("Goodbye, Cruel World!");
+
                 Application.Quit();
             }
+
         }
     }
+
+
 }

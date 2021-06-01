@@ -427,8 +427,8 @@ GameObject:
   - component: {fileID: 121468357}
   - component: {fileID: 121468356}
   m_Layer: 0
-  m_Name: Capsule (3)
-  m_TagString: Untagged
+  m_Name: Bottom left
+  m_TagString: ReflexButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -523,8 +523,8 @@ GameObject:
   - component: {fileID: 190083901}
   - component: {fileID: 190083900}
   m_Layer: 0
-  m_Name: Capsule (2)
-  m_TagString: Untagged
+  m_Name: Top left
+  m_TagString: ReflexButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2584,8 +2584,8 @@ GameObject:
   - component: {fileID: 698230957}
   - component: {fileID: 698230956}
   m_Layer: 0
-  m_Name: Capsule (4)
-  m_TagString: Untagged
+  m_Name: Top middle
+  m_TagString: ReflexButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3327,8 +3327,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.07412545, y: 0.6948414, z: -0.07240883, w: 0.71165854}
+  m_LocalPosition: {x: 10.574228, y: 4.4162464, z: -0.7113797}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4346,6 +4346,7 @@ GameObject:
   - component: {fileID: 1419721696}
   - component: {fileID: 1419721695}
   - component: {fileID: 1419721694}
+  - component: {fileID: 1419721698}
   m_Layer: 0
   m_Name: Reflex test
   m_TagString: Untagged
@@ -4429,6 +4430,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1419721698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419721693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd5e74f7b26c5a4bb75ccdcf2a3f535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1429985635
 GameObject:
   m_ObjectHideFlags: 0
@@ -4841,8 +4854,8 @@ GameObject:
   - component: {fileID: 1608737238}
   - component: {fileID: 1608737237}
   m_Layer: 0
-  m_Name: Capsule (6)
-  m_TagString: Untagged
+  m_Name: Top right
+  m_TagString: ReflexButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5126,7 +5139,7 @@ GameObject:
   - component: {fileID: 1675336987}
   m_Layer: 0
   m_Name: EXIT Button
-  m_TagString: Untagged
+  m_TagString: AdminButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5536,7 +5549,7 @@ GameObject:
   - component: {fileID: 1730035125}
   m_Layer: 0
   m_Name: CLEAR Button
-  m_TagString: Untagged
+  m_TagString: AdminButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6650,8 +6663,8 @@ GameObject:
   - component: {fileID: 1983270322}
   - component: {fileID: 1983270321}
   m_Layer: 0
-  m_Name: Capsule (5)
-  m_TagString: Untagged
+  m_Name: Bottom right
+  m_TagString: ReflexButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
