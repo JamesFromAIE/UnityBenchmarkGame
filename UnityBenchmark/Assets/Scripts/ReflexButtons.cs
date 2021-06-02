@@ -5,13 +5,13 @@ using UnityEngine;
 public class ReflexButtons : MonoBehaviour
 {
     // Links Buttons to Test
-    
     public ReflexTest reflexTest;
     // How far until player can no longer reach
     private float rayLength = 4f;
     // Has button been clicked?
     private bool beenClicked = false;
 
+    // Throwaway 'one-time' boolean
     private bool hasRun = false;
 
     // Looking for button GameObjects
@@ -21,6 +21,7 @@ public class ReflexButtons : MonoBehaviour
     public GameObject bottomRight;
     public GameObject topRight;
 
+    // Looking for light GameObjects
     public GameObject tlLight;
     public GameObject blLight;
     public GameObject tmLight;
@@ -28,11 +29,12 @@ public class ReflexButtons : MonoBehaviour
     public GameObject trLight;
 
 
-    //[HideInInspector]
+    [HideInInspector]
     public int randomNumber;
     private int oldRandomNumber;
 
-    public float gameTimer = 5;
+    // Time given to play game
+    public float gameTimer = 10;
 
 
     // Start is called before the first frame update
@@ -53,11 +55,7 @@ public class ReflexButtons : MonoBehaviour
             gameTimer = gameTimer - Time.deltaTime;
         }
 
-        // Establishes a temporary Ray pointing out of camera
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        // Establishes that attached object can be hit by Raycast
-        RaycastHit hit;
+        ReflexGame();
 
         if (reflexTest.score == 0 && hasRun == false)
         {
@@ -65,57 +63,63 @@ public class ReflexButtons : MonoBehaviour
             LitButtons();
             hasRun = true;
         }
-
-
-        
-            
-            // IF Raycast is over object AND Object Tag is ReflexButton AND Mouse0 is down AND beenClicked is false...
-            if (Physics.Raycast(ray, out hit, rayLength) && hit.transform.tag == "ReflexButton" && Input.GetKey(KeyCode.Mouse0) && beenClicked == false)
-            {
-
-                beenClicked = true;
-                //Debug.Log(randomNumber);
-
-                // Specify which button is pressed.
-                if (hit.transform.gameObject == topLeft && randomNumber == 1)
-                {
-                    PressedButton();
-
-                    //Debug.Log("TopLeft has been pressed once!");
-                }
-                else if (hit.transform.gameObject == bottomLeft && randomNumber == 2)
-                {
-                    PressedButton();
-
-                    //Debug.Log("BottomLeft has been pressed once!");
-                }
-                else if (hit.transform.gameObject == topMiddle && randomNumber == 3)
-                {
-                    PressedButton();
-
-                    //Debug.Log("TopMiddle has been pressed once!");
-                }
-                else if (hit.transform.gameObject == bottomRight && randomNumber == 4)
-                {
-                    PressedButton();
-
-                    //Debug.Log("BottomRight has been pressed once!");
-                }
-                else if (hit.transform.gameObject == topRight && randomNumber == 5)
-                {
-                    PressedButton();
-
-                    //Debug.Log("TopRight has been pressed once!");
-                }
-
-                Debug.Log(reflexTest.score + " point/s!");
-
-                beenClicked = false;
-            }
-        
-
     }    
 
+    // The Reflex Game
+    void ReflexGame()
+    { 
+        // Establishes a temporary Ray pointing out of camera
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+         // Establishes that attached object can be hit by Raycast
+            RaycastHit hit;
+            
+        // IF Raycast is over object AND Object Tag is ReflexButton AND Mouse0 is down AND beenClicked is false...
+        if (Physics.Raycast(ray, out hit, rayLength) && hit.transform.tag == "ReflexButton" && Input.GetKey(KeyCode.Mouse0) && beenClicked == false)
+        {
+
+            beenClicked = true;
+            //Debug.Log(randomNumber);
+
+            // Specify which button is pressed.
+            if (hit.transform.gameObject == topLeft && randomNumber == 1)
+            {
+                PressedButton();
+
+                //Debug.Log("TopLeft has been pressed once!");
+            }
+            else if (hit.transform.gameObject == bottomLeft && randomNumber == 2)
+            {
+                PressedButton();
+
+                //Debug.Log("BottomLeft has been pressed once!");
+            }
+            else if (hit.transform.gameObject == topMiddle && randomNumber == 3)
+            {
+                PressedButton();
+
+                //Debug.Log("TopMiddle has been pressed once!");
+            }
+            else if (hit.transform.gameObject == bottomRight && randomNumber == 4)
+            {
+                PressedButton();
+
+                //Debug.Log("BottomRight has been pressed once!");
+            }
+            else if (hit.transform.gameObject == topRight && randomNumber == 5)
+            {
+                PressedButton();
+
+                //Debug.Log("TopRight has been pressed once!");
+            }
+
+            Debug.Log(reflexTest.score + " point/s!");
+
+            beenClicked = false;
+        }
+    }
+
+    // What happens when you press a button
     void PressedButton()
     {
         // Gives new random number
@@ -127,6 +131,7 @@ public class ReflexButtons : MonoBehaviour
         reflexTest.score++;
     }
 
+    // Find a new button
     void NewButton()
     {
         oldRandomNumber = randomNumber;
@@ -140,6 +145,7 @@ public class ReflexButtons : MonoBehaviour
 
     }
 
+    // Light up the new button
     public void LitButtons()
     {
         switch (randomNumber)
