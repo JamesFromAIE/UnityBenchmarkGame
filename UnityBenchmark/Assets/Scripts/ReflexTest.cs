@@ -4,35 +4,49 @@ using UnityEngine;
 
 public class ReflexTest : MonoBehaviour
 {
-    private float rayLength = 2f;
-    private bool beenClicked = false;
+    // Links Test to Buttons
+    public ReflexButtons reflexButtons;
 
-  /*  public GameObject button1;
-    public GameObject button2;
-    public GameObject button3;
-    public GameObject button4;
-    public GameObject button5; */
+    private float rayLength = 4f;
+
+    public int score;
+
+    [HideInInspector]
+    public bool playing;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        playing = reflexButtons.GetComponent<ReflexButtons>().enabled;
+        playing = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Establishes a temporary Ray pointing out of camera
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        // Establishes that attached object can be hit by Raycast
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, rayLength))
+        if (Physics.Raycast(ray, out hit, rayLength) && Input.GetKey(KeyCode.Mouse0) && playing == false)
         {
-            if (hit.transform.tag == "ReflexButton" && Input.GetKey(KeyCode.Mouse0) && beenClicked == false)
-            {
-                beenClicked = true;
-                Debug.Log("I have been pressed once!");
-            }
-
+            playing = true;
+            
+            Debug.Log("PLAYING!");
         }
+        if (reflexButtons.gameTimer <= 0)
+        {
+            // What happens when Test ends
+            playing = false;
+            reflexButtons.randomNumber = 0;
+            reflexButtons.LitButtons();
+            Debug.Log("You pressed the Lit Buttons " + score + " times!");
+            reflexButtons.gameTimer = 5;
+            reflexButtons.GetComponent<ReflexButtons>().enabled = false;
+        }
+
+
     }
 }
