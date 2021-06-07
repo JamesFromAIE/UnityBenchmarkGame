@@ -30,11 +30,11 @@ public class ReflexTest : MonoBehaviour
         // Establishes that attached object can be hit by Raycast
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, rayLength) && Input.GetKey(KeyCode.Mouse0) && playing == false)
+        if (Physics.Raycast(ray, out hit, rayLength) && Input.GetKey(KeyCode.Mouse0) && hit.transform.tag == "ReflexButton" && playing == false)
         {
             playing = true;
             
-            Debug.Log("PLAYING!");
+            Debug.Log("PLAYING REFLEX TEST!");
         }
         if (reflexButtons.gameTimer <= 0)
         {
