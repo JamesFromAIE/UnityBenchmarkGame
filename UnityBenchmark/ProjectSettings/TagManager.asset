@@ -6,6 +6,9 @@ TagManager:
   tags:
   - AdminButton
   - ReflexButton
+  - ReactionScreen
+  - Database
+  - ReflexTest
   layers:
   - Default
   - TransparentFX

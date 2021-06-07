@@ -75,45 +75,30 @@ public class ReflexButtons : MonoBehaviour
             RaycastHit hit;
             
         // IF Raycast is over object AND Object Tag is ReflexButton AND Mouse0 is down AND beenClicked is false...
-        if (Physics.Raycast(ray, out hit, rayLength) && hit.transform.tag == "ReflexButton" && Input.GetKey(KeyCode.Mouse0) && beenClicked == false)
+        if (Physics.Raycast(ray, out hit, rayLength) && hit.transform.tag == "ReflexButton" && Input.GetMouseButtonDown(0) && beenClicked == false)
         {
-
             beenClicked = true;
-            //Debug.Log(randomNumber);
-
             // Specify which button is pressed.
             if (hit.transform.gameObject == topLeft && randomNumber == 1)
             {
                 PressedButton();
-
-                //Debug.Log("TopLeft has been pressed once!");
             }
             else if (hit.transform.gameObject == bottomLeft && randomNumber == 2)
             {
                 PressedButton();
-
-                //Debug.Log("BottomLeft has been pressed once!");
             }
             else if (hit.transform.gameObject == topMiddle && randomNumber == 3)
             {
                 PressedButton();
-
-                //Debug.Log("TopMiddle has been pressed once!");
             }
             else if (hit.transform.gameObject == bottomRight && randomNumber == 4)
             {
                 PressedButton();
-
-                //Debug.Log("BottomRight has been pressed once!");
             }
             else if (hit.transform.gameObject == topRight && randomNumber == 5)
             {
                 PressedButton();
-
-                //Debug.Log("TopRight has been pressed once!");
             }
-
-            Debug.Log(reflexTest.score + " point/s!");
 
             beenClicked = false;
         }
@@ -137,7 +122,7 @@ public class ReflexButtons : MonoBehaviour
         oldRandomNumber = randomNumber;
 
         randomNumber = Random.Range(1, 6);
-
+        // Checks if same button was chosen 
         while (oldRandomNumber == randomNumber)
         {
             randomNumber = Random.Range(1, 6);
@@ -150,6 +135,7 @@ public class ReflexButtons : MonoBehaviour
     {
         switch (randomNumber)
         {
+
             case 1:
                 tlLight.SetActive(true);
                 blLight.SetActive(false);

@@ -23,6 +23,9 @@ public class ReactionScreen : MonoBehaviour
     // Helps Passive Red Screen run only once each reaction time
     private bool hasRun = false;
 
+    // Checks whether Database received updated score or not
+    public bool reactionSent = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -39,7 +42,8 @@ public class ReactionScreen : MonoBehaviour
         {
             if (hasRun == false)
             {
-                randomTime = Random.Range(2, 6);
+                Debug.Log("PLAYING REFLEX TEST!");
+                randomTime = Random.Range(1, 3);
                 hasRun = true;
             }
             timer += Time.deltaTime;
@@ -69,7 +73,7 @@ public class ReactionScreen : MonoBehaviour
         RaycastHit hit;
 
         // When screen gets clicked by player
-        if (Physics.Raycast(ray, out hit, rayLength) && Input.GetMouseButtonDown(0))
+        if (Physics.Raycast(ray, out hit, rayLength) && Input.GetMouseButtonDown(0) && hit.transform.tag == "ReactionScreen")
         {
             // If Cyan, Turn Red
             if (gameObject.GetComponent<Renderer>().material.color == Color.cyan)
@@ -122,15 +126,23 @@ public class ReactionScreen : MonoBehaviour
     // Calculates and Prints Average Reaction Time
     void AverageTime()
     {
+        // Finds average
         averageReaction = (reaction1 + reaction2 + reaction3) / reactionCount;
+        // Puts value into 3 decimal place
         averageReaction = (Mathf.Round(averageReaction * 1000) / 1000);
+
+        // Linked to Function in Database --> Update()
+        reactionSent = true;
 
         Debug.Log("Your average reaction time is " + averageReaction + " seconds!");
 
+        
+
+        // Resets values in script
         reaction1 = 0;
         reaction2 = 0;
         reaction3 = 0;
-        averageReaction = 0;
+        // averageReaction = 0;
     }
 
 }

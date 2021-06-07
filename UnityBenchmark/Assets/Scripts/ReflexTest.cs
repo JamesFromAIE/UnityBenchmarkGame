@@ -14,6 +14,8 @@ public class ReflexTest : MonoBehaviour
     [HideInInspector]
     public bool playing;
 
+    public bool reflexSent = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,20 +32,33 @@ public class ReflexTest : MonoBehaviour
         // Establishes that attached object can be hit by Raycast
         RaycastHit hit;
 
+        // When buttons is pressed
         if (Physics.Raycast(ray, out hit, rayLength) && Input.GetKey(KeyCode.Mouse0) && hit.transform.tag == "ReflexButton" && playing == false)
         {
             playing = true;
             
             Debug.Log("PLAYING REFLEX TEST!");
         }
+        // What happens when Test ends
         if (reflexButtons.gameTimer <= 0)
         {
-            // What happens when Test ends
+            // Stop the game
             playing = false;
+
             reflexButtons.randomNumber = 0;
+
             reflexButtons.LitButtons();
+
             Debug.Log("You pressed the Lit Buttons " + score + " times!");
+
+            reflexSent = true;
+
+
+
+            // Resets Timer
             reflexButtons.gameTimer = 5;
+
+            // Disables Other Script
             reflexButtons.GetComponent<ReflexButtons>().enabled = false;
         }
 
