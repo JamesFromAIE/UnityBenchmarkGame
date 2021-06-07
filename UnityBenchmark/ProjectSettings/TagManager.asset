@@ -9,6 +9,9 @@ TagManager:
   - ReactionScreen
   - Database
   - ReflexTest
+  - StartButton
+  - ExitButton
+  - ClearButton
   layers:
   - Default
   - TransparentFX

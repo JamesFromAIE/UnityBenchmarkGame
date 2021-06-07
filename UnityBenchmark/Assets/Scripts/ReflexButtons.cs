@@ -9,10 +9,10 @@ public class ReflexButtons : MonoBehaviour
     // How far until player can no longer reach
     private float rayLength = 4f;
     // Has button been clicked?
-    private bool beenClicked = false;
+
 
     // Throwaway 'one-time' boolean
-    private bool hasRun = false;
+    public bool hasRun = false;
 
     // Looking for button GameObjects
     public GameObject topLeft;
@@ -28,8 +28,10 @@ public class ReflexButtons : MonoBehaviour
     public GameObject brLight;
     public GameObject trLight;
 
+    
 
-    [HideInInspector]
+
+    //[HideInInspector]
     public int randomNumber;
     private int oldRandomNumber;
 
@@ -53,16 +55,14 @@ public class ReflexButtons : MonoBehaviour
         if (reflexTest.playing == true)
         {
             gameTimer = gameTimer - Time.deltaTime;
+            ReflexGame();
         }
-
-        ReflexGame();
-
-        if (reflexTest.score == 0 && hasRun == false)
+        else
         {
-            randomNumber = Random.Range(1, 6);
-            LitButtons();
-            hasRun = true;
+           // Something should be here! <---
         }
+
+        
     }    
 
     // The Reflex Game
@@ -71,13 +71,21 @@ public class ReflexButtons : MonoBehaviour
         // Establishes a temporary Ray pointing out of camera
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-         // Establishes that attached object can be hit by Raycast
-            RaycastHit hit;
-            
-        // IF Raycast is over object AND Object Tag is ReflexButton AND Mouse0 is down AND beenClicked is false...
-        if (Physics.Raycast(ray, out hit, rayLength) && hit.transform.tag == "ReflexButton" && Input.GetMouseButtonDown(0) && beenClicked == false)
+        // Establishes that attached object can be hit by Raycast
+        RaycastHit hit;
+
+        // Start of new game
+        if (reflexTest.score == 0 && hasRun == false)
         {
-            beenClicked = true;
+            randomNumber = Random.Range(1, 6);
+            LitButtons();
+            hasRun = true;
+        }
+
+        // IF Raycast is over object AND Object Tag is ReflexButton AND Mouse0 is down...
+        if (Physics.Raycast(ray, out hit, rayLength) && hit.transform.tag == "ReflexButton" && Input.GetMouseButtonDown(0))
+        {
+            
             // Specify which button is pressed.
             if (hit.transform.gameObject == topLeft && randomNumber == 1)
             {
@@ -100,7 +108,6 @@ public class ReflexButtons : MonoBehaviour
                 PressedButton();
             }
 
-            beenClicked = false;
         }
     }
 
@@ -135,6 +142,13 @@ public class ReflexButtons : MonoBehaviour
     {
         switch (randomNumber)
         {
+            case 0:
+                tlLight.SetActive(false);
+                blLight.SetActive(false);
+                tmLight.SetActive(false);
+                brLight.SetActive(false);
+                trLight.SetActive(false);
+                break;
 
             case 1:
                 tlLight.SetActive(true);

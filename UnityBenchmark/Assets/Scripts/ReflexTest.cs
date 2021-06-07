@@ -7,9 +7,13 @@ public class ReflexTest : MonoBehaviour
     // Links Test to Buttons
     public ReflexButtons reflexButtons;
 
+    public GameObject startButton;
+
     private float rayLength = 4f;
 
     public int score;
+
+
 
     [HideInInspector]
     public bool playing;
@@ -33,10 +37,10 @@ public class ReflexTest : MonoBehaviour
         RaycastHit hit;
 
         // When buttons is pressed
-        if (Physics.Raycast(ray, out hit, rayLength) && Input.GetKey(KeyCode.Mouse0) && hit.transform.tag == "ReflexButton" && playing == false)
+        if (Physics.Raycast(ray, out hit, rayLength) && Input.GetMouseButtonDown(0) && hit.transform.tag == "StartButton" && playing == false)
         {
             playing = true;
-            
+            score = 0;
             Debug.Log("PLAYING REFLEX TEST!");
         }
         // What happens when Test ends
@@ -53,13 +57,10 @@ public class ReflexTest : MonoBehaviour
 
             reflexSent = true;
 
-
-
             // Resets Timer
-            reflexButtons.gameTimer = 5;
+            reflexButtons.gameTimer = 10;
 
-            // Disables Other Script
-            reflexButtons.GetComponent<ReflexButtons>().enabled = false;
+            reflexButtons.hasRun = false;
         }
 
 

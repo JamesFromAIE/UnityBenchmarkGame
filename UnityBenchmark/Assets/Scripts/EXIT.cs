@@ -18,7 +18,7 @@ public class EXIT : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, rayLength))
         {
-            if (hit.transform.tag == "AdminButton" && Input.GetKey(KeyCode.Mouse0))
+            if (hit.transform.tag == "ExitButton" && Input.GetMouseButtonDown(0))
             {
                 Debug.Log("Goodbye, Cruel World!");
 

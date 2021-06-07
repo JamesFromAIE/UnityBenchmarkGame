@@ -17,21 +17,28 @@ public class ReactionScreen : MonoBehaviour
     // The average of the last three reaction scores
     public float averageReaction = 0;
     // Variables to store reaction times
-    private float reaction1 = 0;
-    private float reaction2 = 0;
-    private float reaction3 = 0;
+    public float reaction1 = 0;
+    public float reaction2 = 0;
+    public float reaction3 = 0;
     // Helps Passive Red Screen run only once each reaction time
     private bool hasRun = false;
 
     // Checks whether Database received updated score or not
     public bool reactionSent = false;
 
+    public bool reacting;
+
+    private void Start()
+    {
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
-        PassiveColours();
+            PassiveColours();
 
-        TriggeredColours();    
+            TriggeredColours();
     }
 
     // What happens while colours are present
@@ -43,7 +50,7 @@ public class ReactionScreen : MonoBehaviour
             if (hasRun == false)
             {
                 Debug.Log("PLAYING REFLEX TEST!");
-                randomTime = Random.Range(1, 3);
+                randomTime = Random.Range(1, 7);
                 hasRun = true;
             }
             timer += Time.deltaTime;
@@ -91,6 +98,7 @@ public class ReactionScreen : MonoBehaviour
                 reactionCount++;
                 if (reactionCount == 3)
                 {
+                    reacting = false;
                     AverageTime();
                     reactionCount = 0;
                 }
@@ -132,17 +140,18 @@ public class ReactionScreen : MonoBehaviour
         averageReaction = (Mathf.Round(averageReaction * 1000) / 1000);
 
         // Linked to Function in Database --> Update()
-        reactionSent = true;
+        
 
         Debug.Log("Your average reaction time is " + averageReaction + " seconds!");
 
-        
+        reactionSent = true;
+
 
         // Resets values in script
         reaction1 = 0;
         reaction2 = 0;
         reaction3 = 0;
-        // averageReaction = 0;
+        
     }
 
 }
