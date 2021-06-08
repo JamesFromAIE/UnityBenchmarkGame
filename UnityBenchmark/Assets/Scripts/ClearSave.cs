@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ClearSave : MonoBehaviour
 {
     private float rayLength = 3f;
-    public bool clearData = false;
+
+    public bool clearReflex;
+    public bool clearReaction;
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +22,10 @@ public class ClearSave : MonoBehaviour
         // Establishes that attached object can be hit by Raycast
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, rayLength) && Input.GetMouseButtonDown(0) && hit.transform.tag == "ClearButton" && clearData == false)
+        if (Physics.Raycast(ray, out hit, rayLength) && Input.GetMouseButtonDown(0) && hit.transform.tag == "ClearButton" && clearReflex == false && clearReaction == false)
         {
-            clearData = true;
+            clearReflex = true;
+            clearReaction = true;
         }
     }
 }

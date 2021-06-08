@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ReactionScreen : MonoBehaviour
 {
@@ -50,7 +48,7 @@ public class ReactionScreen : MonoBehaviour
             if (hasRun == false)
             {
                 Debug.Log("PLAYING REFLEX TEST!");
-                randomTime = Random.Range(1, 7);
+                randomTime = Random.Range(1.0f, 7.0f);
                 hasRun = true;
             }
             timer += Time.deltaTime;

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Database : MonoBehaviour
 {
@@ -9,13 +6,10 @@ public class Database : MonoBehaviour
     public ReactionScreen reactionScreen;
     public ClearSave clearSave;
 
-
     public float reactionScore;
     public float reactionHigh;
     public float reactionRecent;
     public float reactionAverage;
-    public float totalReactionTime;
-    public int reactionAvCount;
 
     public int reflexScore;
     public int reflexHigh;
@@ -24,13 +18,6 @@ public class Database : MonoBehaviour
 
     private bool reactionCalced = false;
     private bool reflexCalced = false;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -52,6 +39,8 @@ public class Database : MonoBehaviour
         }
         ReflexDatabase();
         ReactionDatabase();
+        clearSave.clearReaction = false;
+        clearSave.clearReflex = false;
     }
 
     public void ReactionDatabase()
@@ -63,6 +52,18 @@ public class Database : MonoBehaviour
             reactionCalced = true;
         }
 
+        // If Clear Save button is pressed, reset values
+        if (clearSave.clearReaction == true)
+        {
+            reactionScore = 0;
+            reactionHigh = 0;
+            reactionRecent = 0;
+            reactionAverage = 0;
+
+            Debug.Log("Reaction Results Cleared");
+            
+        }
+
         float[] reactionArray = new float[4];
 
         // Update Array
@@ -70,13 +71,6 @@ public class Database : MonoBehaviour
         reactionArray[1] = reactionHigh;
         reactionArray[2] = reactionRecent;
         reactionArray[3] = reactionAverage;
-
-        if (clearSave.clearData == true)
-        {
-            Array.Clear(reactionArray, 0, reactionArray.Length);
-            //clearSave.clearData = false;
-            Debug.Log("reaction results cleared");
-        }
     }
 
     public void ReflexDatabase()
@@ -96,14 +90,18 @@ public class Database : MonoBehaviour
         reflexArray[2] = reflexAverage;
         reflexArray[3] = reflexHigh;
 
-        if (clearSave.clearData == true)
+        if (clearSave.clearReflex == true)
         {
-            Array.Clear(reflexArray, 0, reflexArray.Length);
-            clearSave.clearData = false;
-            Debug.Log("reaction results cleared");
+            reflexScore = 0;
+            reflexHigh = 0;
+            reflexRecent = 0;
+            reflexAverage = 0;
+
+            clearSave.clearReflex = false;
+            Debug.Log("Reflex Results Cleared");
         }
     }
-   
+
     void ReactionCalculations()
     {
         Debug.Log("reactionScore was receieved");
