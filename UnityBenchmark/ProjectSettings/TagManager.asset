@@ -12,6 +12,7 @@ TagManager:
   - StartButton
   - ExitButton
   - ClearButton
+  - MiddlePoint
   layers:
   - Default
   - TransparentFX

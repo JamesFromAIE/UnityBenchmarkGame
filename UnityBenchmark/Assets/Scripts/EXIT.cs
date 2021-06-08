@@ -5,7 +5,7 @@ public class EXIT : MonoBehaviour
 
     // CLOSE GAME WHEN PLAYER CLICKS OBJECT
 
-    private float rayLength = 2f;
+    private float rayLength = 3f;
 
     // Update is called once per frame
     void Update()

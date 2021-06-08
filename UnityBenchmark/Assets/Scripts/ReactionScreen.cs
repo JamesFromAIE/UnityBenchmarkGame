@@ -26,6 +26,8 @@ public class ReactionScreen : MonoBehaviour
 
     public bool reacting;
 
+    
+
     private void Start()
     {
         
@@ -78,36 +80,40 @@ public class ReactionScreen : MonoBehaviour
         RaycastHit hit;
 
         // When screen gets clicked by player
-        if (Physics.Raycast(ray, out hit, rayLength) && Input.GetMouseButtonDown(0) && hit.transform.tag == "ReactionScreen")
+        if (Physics.Raycast(ray, out hit, rayLength) && hit.transform.tag == "ReactionScreen")
         {
-            // If Cyan, Turn Red
-            if (gameObject.GetComponent<Renderer>().material.color == Color.cyan)
+
+            if (Input.GetMouseButtonDown(0))
             {
-                gameObject.GetComponent<Renderer>().material.color = new Color(1, 0, 0);
-            }
-            // If Green, Turn Cyan and find reaction time
-            else if (gameObject.GetComponent<Renderer>().material.color == Color.green)
-            {
-                gameObject.GetComponent<Renderer>().material.color = new Color(0, 1, 1);
-                hasRun = false;
-                Debug.Log("Your reaction time was " + reactionTime + " seconds!");
-                ReactionTimes();
-                reactionTime = 0;
-                reactionCount++;
-                if (reactionCount == 3)
+                // If Cyan, Turn Red
+                if (gameObject.GetComponent<Renderer>().material.color == Color.cyan)
                 {
-                    reacting = false;
-                    AverageTime();
-                    reactionCount = 0;
+                    gameObject.GetComponent<Renderer>().material.color = new Color(1, 0, 0);
                 }
-            }
-            // If Red, Turn Cyan and inform player they clicked too early
-            else if (gameObject.GetComponent<Renderer>().material.color == Color.red)
-            {
-                gameObject.GetComponent<Renderer>().material.color = new Color(0, 1, 1);
-                timer = 0;
-                Debug.Log("You clicked TOO EARLY!");
-                hasRun = false;
+                // If Green, Turn Cyan and find reaction time
+                else if (gameObject.GetComponent<Renderer>().material.color == Color.green)
+                {
+                    gameObject.GetComponent<Renderer>().material.color = new Color(0, 1, 1);
+                    hasRun = false;
+                    Debug.Log("Your reaction time was " + reactionTime + " seconds!");
+                    ReactionTimes();
+                    reactionTime = 0;
+                    reactionCount++;
+                    if (reactionCount == 3)
+                    {
+                        reacting = false;
+                        AverageTime();
+                        reactionCount = 0;
+                    }
+                }
+                // If Red, Turn Cyan and inform player they clicked too early
+                else if (gameObject.GetComponent<Renderer>().material.color == Color.red)
+                {
+                    gameObject.GetComponent<Renderer>().material.color = new Color(0, 1, 1);
+                    timer = 0;
+                    Debug.Log("You clicked TOO EARLY!");
+                    hasRun = false;
+                }
             }
 
         }

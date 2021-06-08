@@ -104,7 +104,6 @@ public class Database : MonoBehaviour
 
     void ReactionCalculations()
     {
-        Debug.Log("reactionScore was receieved");
 
         //Finding Recent Score
         reactionRecent = reactionScore;
@@ -117,6 +116,7 @@ public class Database : MonoBehaviour
         else
         {
             reactionAverage = (reactionAverage + reactionRecent) / 2;
+            reactionAverage = (Mathf.Round(reactionAverage * 1000) / 1000);
         }
 
         // Finding High Score
