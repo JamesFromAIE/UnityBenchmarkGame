@@ -7,7 +7,6 @@ public class GUI : MonoBehaviour
 {
     public Database database;
 
-
     private bool viewingScreen = false;
     public bool resultsSent = false;
 
@@ -30,7 +29,6 @@ public class GUI : MonoBehaviour
     void Start()
     {
         state = 0;
-
     }
 
     // Update is called once per frame
