@@ -5,7 +5,7 @@ public class ReflexButtons : MonoBehaviour
     // Links Buttons to Test
     public ReflexTest reflexTest;
     // How far until player can no longer reach
-    private float rayLength = 4f;
+    private float rayLength = 5f;
     // Has button been clicked?
 
 

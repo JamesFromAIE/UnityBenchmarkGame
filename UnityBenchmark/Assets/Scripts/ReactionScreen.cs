@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class ReactionScreen : MonoBehaviour
 {
@@ -26,11 +27,16 @@ public class ReactionScreen : MonoBehaviour
 
     public bool reacting;
 
-    
+    // Establishes UI elements for result
+    public Image reactionMask;
+    public Text reactionText;
+    private float resultTime = 2f;
+    private bool resultShown = false;
 
     private void Start()
     {
-        
+        reactionText.enabled = false;
+        reactionMask.enabled = false;
     }
 
     // Update is called once per frame
@@ -39,6 +45,8 @@ public class ReactionScreen : MonoBehaviour
             PassiveColours();
 
             TriggeredColours();
+
+            ShowUI();
     }
 
     // What happens while colours are present
@@ -102,6 +110,7 @@ public class ReactionScreen : MonoBehaviour
                     if (reactionCount == 3)
                     {
                         reacting = false;
+                        resultShown = true;
                         AverageTime();
                         reactionCount = 0;
                     }
@@ -156,6 +165,25 @@ public class ReactionScreen : MonoBehaviour
         reaction2 = 0;
         reaction3 = 0;
         
+    }
+    
+    void ShowUI()
+    {
+        if (resultShown)
+        {
+            resultTime -= Time.deltaTime;
+            Debug.Log(resultTime);
+            reactionText.enabled = true;
+            reactionMask.enabled = true;
+
+            if (resultTime <= 0)
+            {
+                reactionText.enabled = false;
+                reactionMask.enabled = false;
+                resultTime = 2;
+                resultShown = false;
+            }
+        }
     }
 
 }

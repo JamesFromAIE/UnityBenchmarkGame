@@ -21,15 +21,17 @@ public class MidPoint : MonoBehaviour
         // Establishes that attached object can be hit by Raycast
         RaycastHit hit;
 
+        
+
         if (Physics.Raycast(ray, out hit, 6) && hit.transform.tag == "ReactionScreen")
         {
             state = 1;
         }
-        else if (Physics.Raycast(ray, out hit, 3) && hit.transform.tag == "ExitButton")
+        else if (Physics.Raycast(ray, out hit, 4) && hit.transform.tag == "ExitButton")
         {
             state = 2;
         }
-        else if (Physics.Raycast(ray, out hit, 3) && hit.transform.tag == "ClearButton")
+        else if (Physics.Raycast(ray, out hit, 4) && hit.transform.tag == "ClearButton")
         {
             state = 3;
         }
@@ -37,7 +39,7 @@ public class MidPoint : MonoBehaviour
         {
             state = 4;
         }
-        else if (Physics.Raycast(ray, out hit, 4) && hit.transform.tag == "ReflexButton")
+        else if (Physics.Raycast(ray, out hit, 5) && hit.transform.tag == "ReflexButton")
         {
             state = 5;
         }

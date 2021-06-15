@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class ReflexTest : MonoBehaviour
 {
@@ -11,7 +12,11 @@ public class ReflexTest : MonoBehaviour
 
     public int score;
 
-
+    // Establishes UI elements for result
+    public Image reflexMask;
+    public Text reflexText;
+    private float resultTime = 2f;
+    private bool resultShown = false;
 
     [HideInInspector]
     public bool playing;
@@ -23,6 +28,9 @@ public class ReflexTest : MonoBehaviour
     {
         playing = reflexButtons.GetComponent<ReflexButtons>().enabled;
         playing = false;
+
+        reflexText.enabled = false;
+        reflexMask.enabled = false;
     }
 
     // Update is called once per frame
@@ -55,12 +63,31 @@ public class ReflexTest : MonoBehaviour
 
             reflexSent = true;
 
+            resultShown = true;
+
             // Resets Timer
             reflexButtons.gameTimer = 10;
 
             reflexButtons.hasRun = false;
+
+            
         }
 
+        if (resultShown)
+        {
+            resultTime -= Time.deltaTime;
+            Debug.Log(resultTime);
+            reflexText.enabled = true;
+            reflexMask.enabled = true;
+
+            if (resultTime <= 0)
+            {
+                reflexText.enabled = false;
+                reflexMask.enabled = false;
+                resultTime = 2;
+                resultShown = false;
+            }
+        }
 
     }
 }

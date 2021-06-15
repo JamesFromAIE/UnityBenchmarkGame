@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Database : MonoBehaviour
 {
@@ -10,11 +13,16 @@ public class Database : MonoBehaviour
     public float reactionHigh;
     public float reactionRecent;
     public float reactionAverage;
+    private List<float> listOfReactions = new List<float>();
+    private int reactionAverageCount;
+
 
     public int reflexScore;
     public int reflexHigh;
     public int reflexRecent;
-    public int reflexAverage;
+    public float reflexAverage;
+    private List<float> listOfReflexes = new List<float>();
+    private int reflexAverageCount = 0;
 
     private bool reactionCalced = false;
     private bool reflexCalced = false;
@@ -87,7 +95,7 @@ public class Database : MonoBehaviour
         // Update Array
         reflexArray[0] = reflexScore;
         reflexArray[1] = reflexRecent;
-        reflexArray[2] = reflexAverage;
+        // reflexArray[2] = reflexAverage;
         reflexArray[3] = reflexHigh;
 
         if (clearSave.clearReflex == true)
@@ -109,15 +117,20 @@ public class Database : MonoBehaviour
         reactionRecent = reactionScore;
 
         // Finding Average Score
-        if (reactionAverage == 0)
+        listOfReactions.Add(reactionRecent);
+
+        // Finds the number of scores in the List
+        foreach (float value in listOfReactions)
         {
-            reactionAverage = reactionScore;
+            reactionAverageCount++;
         }
-        else
-        {
-            reactionAverage = (reactionAverage + reactionRecent) / 2;
-            reactionAverage = (Mathf.Round(reactionAverage * 1000) / 1000);
-        }
+
+        // Finds the Average overall Score
+        reactionAverage = listOfReactions.Sum() / reactionAverageCount;
+        // Rounds Average to two decimal place
+        reactionAverage = (Mathf.Round(reactionAverage * 1000) / 1000);
+        // Resets number of scores in List
+        reactionAverageCount = 0;
 
         // Finding High Score
         if (reactionHigh > reactionScore)
@@ -136,14 +149,24 @@ public class Database : MonoBehaviour
         reflexRecent = reflexScore;
 
         // Finding Average Score
-        if (reflexAverage == 0)
+
+        // Adds the most Recent score
+        listOfReflexes.Add(reflexRecent);
+
+        // Finds the number of scores in the List
+        foreach (float value in listOfReflexes)
         {
-            reflexAverage = reflexScore;
+            reflexAverageCount++;
         }
-        else
-        {
-            reflexAverage = (reflexAverage + reflexRecent) / 2;
-        }
+
+        // Finds the Average overall Score
+        reflexAverage = listOfReflexes.Sum() / reflexAverageCount;
+        // Rounds Average to two decimal place
+        reflexAverage = (Mathf.Round(reflexAverage * 100) / 100);
+        // Resets number of scores in List
+        reflexAverageCount = 0;
+
+
 
         // Finding High Score
         if (reflexHigh < reflexScore)
