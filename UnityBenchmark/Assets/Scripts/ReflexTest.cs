@@ -76,7 +76,6 @@ public class ReflexTest : MonoBehaviour
         if (resultShown)
         {
             resultTime -= Time.deltaTime;
-            Debug.Log(resultTime);
             reflexText.enabled = true;
             reflexMask.enabled = true;
 

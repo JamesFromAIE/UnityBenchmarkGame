@@ -172,7 +172,6 @@ public class ReactionScreen : MonoBehaviour
         if (resultShown)
         {
             resultTime -= Time.deltaTime;
-            Debug.Log(resultTime);
             reactionText.enabled = true;
             reactionMask.enabled = true;
 
