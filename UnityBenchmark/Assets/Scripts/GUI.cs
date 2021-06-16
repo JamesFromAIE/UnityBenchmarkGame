@@ -88,7 +88,7 @@ public class GUI : MonoBehaviour
         {
             // If Escape Key is Up and GUI is Off
             case 0:
-                Offcase();
+                 Offcase();
                 break;
             // If Escape Down is Down and GUI is Off
             case 1:
