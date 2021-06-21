@@ -10,33 +10,37 @@ public class ReactionScreen : MonoBehaviour
 
     // How far until player can no longer reach
     private float rayLength = 8f;
-    
+
     // Times for test
-    public float randomTime = 0;
-    public float timer = 0;
-    public float reactionTime = 0;
+    private float randomTime = 0;
+    private float timer = 0;
+    private float reactionTime = 0;
 
     // How many times the player has reacted in ONE 'attempt'
-    public int reactionCount;
+    private int reactionCount;
     // The average of the last three reaction scores
     public float averageReaction = 0;
     // Variables to store reaction times
-    public float reaction1 = 0;
-    public float reaction2 = 0;
-    public float reaction3 = 0;
+    private float reaction1 = 0;
+    private float reaction2 = 0;
+    private float reaction3 = 0;
     // Helps Passive Red Screen run only once each reaction time
     private bool hasRun = false;
 
     // Checks whether Database received updated score or not
     public bool reactionSent = false;
 
-    public bool reacting = false;
-
     // Establishes UI elements for result
     public Image reactionMask;
     public Text reactionText;
     private float resultTime = 2f;
     private bool resultShown = false;
+
+    // Establishes UI elements for result
+    public Image earlyMask;
+    public Text earlyText;
+    private float earlyTime = 1f;
+    private bool earlyShown = false;
 
     // Establishes UI elements for start
     public Image startMask;
@@ -49,6 +53,9 @@ public class ReactionScreen : MonoBehaviour
     {
         reactionText.enabled = false;
         reactionMask.enabled = false;
+
+        earlyMask.enabled = false;
+        earlyText.enabled = false;
 
         startMask.enabled = false;
         startText.enabled = false;
@@ -69,7 +76,9 @@ public class ReactionScreen : MonoBehaviour
         {
             StartingUI();
         }
-        
+
+        TooEarlyUI();
+
         ShowUI();
     }
 
@@ -124,11 +133,13 @@ public class ReactionScreen : MonoBehaviour
                 // If Cyan, Turn Red
                 if (gameObject.GetComponent<Renderer>().material.color == Color.cyan)
                 {
-                   
+                    // Remove Early notification if playing
+                    earlyText.enabled = false;
+                    earlyMask.enabled = false;
+                    earlyTime = 1;
+                    earlyShown = false;
 
-                    reacting = true;
                     startUI = true;
- 
                 }
                 // If Green, Turn Cyan and find reaction time
                 else if (gameObject.GetComponent<Renderer>().material.color == Color.green)
@@ -141,7 +152,6 @@ public class ReactionScreen : MonoBehaviour
                     reactionCount++;
                     if (reactionCount == 3)
                     {
-                        reacting = false;
                         resultShown = true;
                         AverageTime();
                         reactionCount = 0;
@@ -155,6 +165,7 @@ public class ReactionScreen : MonoBehaviour
                     timer = 0;
                     Debug.Log("You clicked TOO EARLY!");
                     hasRun = false;
+                    earlyShown = true;
                 }
             }
 
@@ -252,6 +263,24 @@ public class ReactionScreen : MonoBehaviour
         {
             startUI = false;
             gameObject.GetComponent<Renderer>().material.color = new Color(1, 0, 0);
+        }
+    }
+
+    void TooEarlyUI()
+    {
+        if (earlyShown)
+        {
+            earlyTime -= Time.deltaTime;
+            earlyText.enabled = true;
+            earlyMask.enabled = true;
+
+            if (earlyTime <= 0)
+            {
+                earlyText.enabled = false;
+                earlyMask.enabled = false;
+                earlyTime = 1;
+                earlyShown = false;
+            }
         }
     }
 }
