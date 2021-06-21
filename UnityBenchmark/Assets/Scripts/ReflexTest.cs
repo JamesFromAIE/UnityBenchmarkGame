@@ -5,8 +5,11 @@ public class ReflexTest : MonoBehaviour
 {
     // Links Test to Buttons
     public ReflexButtons reflexButtons;
+    public FPSMovement fpsMovement;
 
     public GameObject startButton;
+    public GameObject startingPoint;
+    private GameObject player;
 
     private float rayLength = 4f;
 
@@ -17,6 +20,13 @@ public class ReflexTest : MonoBehaviour
     public Text reflexText;
     private float resultTime = 2f;
     private bool resultShown = false;
+
+    // Establishes UI elements for start
+    public Image startMask;
+    public Text startText;
+    public Text startNumber;
+    private float startTime = 4f;
+    private bool startShown = false;
 
     [HideInInspector]
     public bool playing;
@@ -31,6 +41,15 @@ public class ReflexTest : MonoBehaviour
 
         reflexText.enabled = false;
         reflexMask.enabled = false;
+
+        startMask.enabled = false;
+        startText.enabled = false;
+        startNumber.enabled = false;
+
+        // Finds "Player" in Scene
+        player = GameObject.FindWithTag("Player");
+
+        
     }
 
     // Update is called once per frame
@@ -45,10 +64,21 @@ public class ReflexTest : MonoBehaviour
         // When buttons is pressed
         if (Physics.Raycast(ray, out hit, rayLength) && Input.GetMouseButtonDown(0) && hit.transform.tag == "StartButton" && playing == false)
         {
-            playing = true;
-            score = 0;
+            // Sets player position to game
+            player.transform.position = startingPoint.transform.position;
+            player.transform.rotation = startingPoint.transform.rotation;
+            // Turns off Player movement
+            fpsMovement.enabled = false;
+
+            startShown = true;
+            
+
             Debug.Log("PLAYING REFLEX TEST!");
+
         }
+
+        StartingUI();
+
         // What happens when Test ends
         if (reflexButtons.gameTimer <= 0)
         {
@@ -70,9 +100,14 @@ public class ReflexTest : MonoBehaviour
 
             reflexButtons.hasRun = false;
 
-            
+            fpsMovement.enabled = true;   
         }
 
+        ResultUI();    
+    }
+
+    void ResultUI()
+    {
         if (resultShown)
         {
             resultTime -= Time.deltaTime;
@@ -83,10 +118,33 @@ public class ReflexTest : MonoBehaviour
             {
                 reflexText.enabled = false;
                 reflexMask.enabled = false;
-                resultTime = 2;
+                resultTime = 2f;
                 resultShown = false;
             }
         }
+    }
+    void StartingUI ()
+    {
+        if (startShown)
+        {
+            startTime -= Time.deltaTime;
+            startMask.enabled = true;
+            startText.enabled = true;
+            startNumber.enabled = true;
 
+            startNumber.text = "" + startTime;
+
+            if (startTime <= 1)
+            {
+                startMask.enabled = false;
+                startText.enabled = false;
+                startNumber.enabled = false;
+                startShown = false;
+
+                playing = true;
+                score = 0;
+                startTime = 4f;
+            }
+        }
     }
 }

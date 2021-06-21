@@ -166,8 +166,6 @@ public class Database : MonoBehaviour
         // Resets number of scores in List
         reflexAverageCount = 0;
 
-
-
         // Finding High Score
         if (reflexHigh < reflexScore)
         {

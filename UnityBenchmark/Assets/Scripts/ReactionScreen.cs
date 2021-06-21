@@ -3,8 +3,13 @@ using UnityEngine.UI;
 
 public class ReactionScreen : MonoBehaviour
 {
+    public FPSMovement fpsMovement;
+
+    private GameObject player;
+    public GameObject startingPoint;
+
     // How far until player can no longer reach
-    private float rayLength = 6f;
+    private float rayLength = 8f;
     
     // Times for test
     public float randomTime = 0;
@@ -25,7 +30,7 @@ public class ReactionScreen : MonoBehaviour
     // Checks whether Database received updated score or not
     public bool reactionSent = false;
 
-    public bool reacting;
+    public bool reacting = false;
 
     // Establishes UI elements for result
     public Image reactionMask;
@@ -33,20 +38,39 @@ public class ReactionScreen : MonoBehaviour
     private float resultTime = 2f;
     private bool resultShown = false;
 
-    private void Start()
+    // Establishes UI elements for start
+    public Image startMask;
+    public Text startText;
+    public Text startNumber;
+    private float startTime = 4f;
+    private bool startUI = false;
+
+    void Start()
     {
         reactionText.enabled = false;
         reactionMask.enabled = false;
+
+        startMask.enabled = false;
+        startText.enabled = false;
+        startNumber.enabled = false;
+
+        // Finds "Player" in Scene
+        player = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-            PassiveColours();
+        PassiveColours();
 
-            TriggeredColours();
+        TriggeredColours();
 
-            ShowUI();
+        if (startUI)
+        {
+            StartingUI();
+        }
+        
+        ShowUI();
     }
 
     // What happens while colours are present
@@ -55,12 +79,15 @@ public class ReactionScreen : MonoBehaviour
         // What happens when Red is first shown
         if (gameObject.GetComponent<Renderer>().material.color == Color.red)
         {
+
+            // Gives ONE random range per attempt
             if (hasRun == false)
             {
                 Debug.Log("PLAYING REFLEX TEST!");
                 randomTime = Random.Range(1.0f, 7.0f);
                 hasRun = true;
             }
+            // Counts up from 0 until it hits Random Time
             timer += Time.deltaTime;
         }
 
@@ -70,6 +97,7 @@ public class ReactionScreen : MonoBehaviour
             gameObject.GetComponent<Renderer>().material.color = new Color(0, 1, 0);
             timer = 0;
         }
+
         // If Green, start reaction timer
         if (gameObject.GetComponent<Renderer>().material.color == Color.green)
         {
@@ -96,7 +124,11 @@ public class ReactionScreen : MonoBehaviour
                 // If Cyan, Turn Red
                 if (gameObject.GetComponent<Renderer>().material.color == Color.cyan)
                 {
-                    gameObject.GetComponent<Renderer>().material.color = new Color(1, 0, 0);
+                   
+
+                    reacting = true;
+                    startUI = true;
+ 
                 }
                 // If Green, Turn Cyan and find reaction time
                 else if (gameObject.GetComponent<Renderer>().material.color == Color.green)
@@ -113,6 +145,7 @@ public class ReactionScreen : MonoBehaviour
                         resultShown = true;
                         AverageTime();
                         reactionCount = 0;
+                        fpsMovement.enabled = true;
                     }
                 }
                 // If Red, Turn Cyan and inform player they clicked too early
@@ -185,4 +218,40 @@ public class ReactionScreen : MonoBehaviour
         }
     }
 
+    void StartingUI()
+    {
+        // Start of an attempt
+        if (reactionCount == 0)
+        {
+            // Sets player position to game
+            player.transform.position = startingPoint.transform.position;
+            player.transform.rotation = startingPoint.transform.rotation;
+            // Turns off Player movement
+            fpsMovement.enabled = false;
+
+            startTime -= Time.deltaTime;
+            startMask.enabled = true;
+            startText.enabled = true;
+            startNumber.enabled = true;
+
+            startNumber.text = "" + startTime;
+
+            if (startTime <= 1)
+            {
+                startMask.enabled = false;
+                startText.enabled = false;
+                startNumber.enabled = false;
+                startUI = false;
+
+                gameObject.GetComponent<Renderer>().material.color = new Color(1, 0, 0);
+
+                startTime = 4f;
+            }
+        }
+        else if (reactionCount != 0)
+        {
+            startUI = false;
+            gameObject.GetComponent<Renderer>().material.color = new Color(1, 0, 0);
+        }
+    }
 }
