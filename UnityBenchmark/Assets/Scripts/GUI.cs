@@ -28,6 +28,8 @@ public class GUI : MonoBehaviour
     public GameObject mask;
     public GameObject esc;
 
+    //public float maskPos;
+
 
 
     // Start is called before the first frame update
@@ -35,6 +37,8 @@ public class GUI : MonoBehaviour
     {
         // Starts the GUI in a default state
         state = 0;
+
+        //maskPos = mask.transform.position.y;
     }
 
     // Update is called once per frame
@@ -90,19 +94,23 @@ public class GUI : MonoBehaviour
         {
             // If Escape Key is Up and GUI is Off
             case 0:
-                 Offcase();
+                Offcase();
+                GoneGUI();
                 break;
             // If Escape Down is Down and GUI is Off
             case 1:
                 OnCase();
+                OpenGUI();
                 break;
             // If Escape Key is Up and GUI is On
             case 2:
                 OnCase();
+                ShownGUI();
                 break;
             // If Escape Key is Down and GUI is On
             case 3:
                 Offcase();
+                CloseGUI();
                 break;
         }
     }
@@ -119,7 +127,7 @@ public class GUI : MonoBehaviour
 
         reflexesText.SetActive(false);
         reactionsText.SetActive(false);
-        mask.SetActive(false);
+        //mask.SetActive(false);
         esc.SetActive(true);
         viewingScreen = false;
     }
@@ -139,6 +147,62 @@ public class GUI : MonoBehaviour
         mask.SetActive(true);
         esc.SetActive(true);
         viewingScreen = true;
+    }
+
+    void OpenGUI()
+    {
+        if (mask != null)
+        {
+            Animator animator = mask.GetComponent<Animator>();
+            if(animator != null)
+            {
+                //bool GUIIn = animator.GetBool("displayed");
+
+                animator.SetBool("animating", true);
+            }
+        }
+    }
+
+    void ShownGUI()
+    {
+        if (mask != null)
+        {
+            Animator animator = mask.GetComponent<Animator>();
+            if (animator != null)
+            {
+                //bool GUIIn = animator.GetBool("displayed");
+
+                animator.SetBool("displayed", true);
+                //maskPos = -317;
+            }
+        }
+    }
+    void CloseGUI()
+    {
+        if (mask != null)
+        {
+            Animator animator = mask.GetComponent<Animator>();
+            if (animator != null)
+            {
+                //bool GUIIn = animator.GetBool("displayed");
+
+                animator.SetBool("animating", false);
+            }
+        }
+    }
+
+    void GoneGUI()
+    {
+        if (mask != null)
+        {
+            Animator animator = mask.GetComponent<Animator>();
+            if (animator != null)
+            {
+                //bool GUIIn = animator.GetBool("displayed");
+
+                animator.SetBool("displayed", false);
+            }
+        }
     }
 
 }
