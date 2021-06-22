@@ -31,6 +31,7 @@ public class FPSMovement : MonoBehaviour
     void Awake()
     {
         m_finalSpeed = m_movementSpeed;
+        m_groundMask = LayerMask.GetMask("Ground");
     }
 
     // Update is called once per frame
